@@ -6,6 +6,7 @@
                 lib =
                     {
                         coreutils ,
+                        failure ,
                         findutils ,
                         nix ,
                         package ,
@@ -21,7 +22,7 @@
                                                     writeShellApplication
                                                         {
                                                             name = "init" ;
-                                                            runtimeInputs = [ coreutils findutils nix ( failure "d070b306" ) ] ;
+                                                            runtimeInputs = [ coreutils findutils nix ( failure.implementation "d070b306" ) ] ;
                                                             text =
                                                                 ''
                                                                     mkdir --parents /mount/bin
@@ -39,7 +40,6 @@
                                     check =
                                         {
                                             expected-init ,
-                                            failure ,
                                             mkDerivation
                                         } :
                                             mkDerivation
