@@ -25,7 +25,7 @@
                                                             runtimeInputs = [ coreutils findutils nix ( failure.implementation "d070b306" ) ] ;
                                                             text =
                                                                 ''
-                                                                    nix build ${ package } --out-link /links 2>&1
+                                                                    nix build ${ package } --out-link /links/result 2>&1
                                                                     PACKAGE="$( nix eval ${ package } --raw )" || failure
                                                                     find "$PACKAGE" -mindepth 1 -maxdepth 1 -name bin -exec ln --symbolic {} /mount \;
                                                                 '' ;
