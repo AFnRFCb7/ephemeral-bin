@@ -27,11 +27,11 @@
                                                                 ''
                                                                     nix build ${ package } --out-link /links/result 2>&1
                                                                     PACKAGE="$( nix eval ${ package } --raw )" || failure
-                                                                    ln --symbolic "$PACKAGE" /mount/derivation
+                                                                    find "$PACKAGE" -mindepth 1 -maxdepth 1 -name bin -exec ln --symbolic {} /mount \;
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
-                                    targets = [ "links" "derivation" ] ;
+                                    targets = [ "bin" ] ;
                                     transient = false ;
                                 } ;
                             in
