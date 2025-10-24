@@ -25,7 +25,9 @@
                                                             text =
                                                                 ''
                                                                     mkdir --parents /mount/bin
-                                                                    nix shell ${ package } nixpkgs#which --command ln --symbolic ${ target } /mount/bin
+                                                                    TARGET_1="$( nix shell ${ package } nixpkgs#which --command which ${ target } )" || failure 1
+                                                                    TARGET_2="$( nix shell ${ package } nixpkgs#which --command which ${ target } )" || failure 2
+                                                                    ln --symbolic "$TARGET_2" /mount/bin
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
