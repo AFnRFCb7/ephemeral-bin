@@ -25,7 +25,7 @@
                                                             runtimeInputs = [ coreutils findutils nix ( failure.implementation "d070b306" ) ] ;
                                                             text =
                                                                 ''
-                                                                    mkdir --parents /mount/bin
+                                                                    mkdir --parents /mount
                                                                     nix build ${ package }
                                                                     PACKAGE="$( nix eval ${ package } )" || failure
                                                                     find "$PACKAGE" -maxdepth 1 -mindepth 1 -name bin -exec ln --symbolic {} /mount \;
