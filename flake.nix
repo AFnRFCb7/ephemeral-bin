@@ -55,7 +55,7 @@
                                                                         runtimeInputs = [ ( failure "42ad3053" ) ] ;
                                                                         text =
                                                                             let
-                                                                                observed-init = implementations.init { resources = null ; self = null ; } ;
+                                                                                observed-init = implementation.init { resources = null ; self = null ; } ;
                                                                                 in
                                                                                     ''
                                                                                         if [[ "${ expected-init }" != "${ observed-init }" ]]
