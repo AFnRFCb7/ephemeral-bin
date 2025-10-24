@@ -26,6 +26,7 @@
                                                                 ''
                                                                     mkdir --parents /mount/bin
                                                                     TARGET_1="$( nix shell ${ package } nixpkgs#which --command which ${ target } )" || failure 1
+                                                                    export TARGET_1
                                                                     TARGET_2="$( nix shell ${ package } nixpkgs#which --command which ${ target } )" || failure 2
                                                                     ln --symbolic "$TARGET_2" /mount/bin
                                                                 '' ;
