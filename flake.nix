@@ -62,7 +62,7 @@
                                                                                         then
                                                                                             failure "We expected the init to be ${ expected-init } but we observed ${ observed-init }" ;-
                                                                                         fi
-                                                                                        if [[ '"[\"bin\"]"' != ${ builtions.toJSON implementation.targets } ]]
+                                                                                        if [[ '"[\"bin\"]"' != ${ builtins.toJSON implementation.targets } ]]
                                                                                         then
                                                                                             failure "We expected the targets to be bin"
                                                                                         fi
