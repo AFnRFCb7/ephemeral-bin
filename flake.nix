@@ -8,6 +8,7 @@
                         coreutils ,
                         failure ,
                         findutils ,
+                        garbage-collection-root ,
                         nix ,
                         package ,
                         writeShellApplication
@@ -25,9 +26,11 @@
                                                             runtimeInputs = [ coreutils findutils nix ( failure.implementation "d070b306" ) ] ;
                                                             text =
                                                                 ''
-                                                                    nix build ${ package } --out-link /links/result 2>&1
-                                                                    PACKAGE="$( nix eval ${ package } --raw )" || failure
+                                                                    FILE="$( mktemp --dry-run ${ garbage-collection-root } )" || failure mktemp --dry-run ${ garbage-collection-root }
+                                                                    nix build ${ package } --out-link "$FILE" 2>&1
+                                                                    PACKAGE="$( nix eval ${ package } --raw )" || failure nix eval ${ package }
                                                                     find "$PACKAGE" -mindepth 1 -maxdepth 1 -name bin -exec ln --symbolic {} /mount \;
+                                                                    mkdir --parents ${ garbage-collection-root }
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
