@@ -21,7 +21,7 @@
                                                     writeShellApplication
                                                         {
                                                             name = "init" ;
-                                                            runtimeInputs = [ coreutils find nix ( failure "d070b306" ) ] ;
+                                                            runtimeInputs = [ coreutils findutils nix ( failure "d070b306" ) ] ;
                                                             text =
                                                                 ''
                                                                     mkdir --parents /mount/bin
