@@ -30,6 +30,7 @@
                                                         } ;
                                                 in "${ application }/bin/init" ;
                                     targets = [ "bin" ] ;
+                                    transient = false ;
                                 } ;
                             in
                                 {
@@ -65,6 +66,10 @@
                                                                                         if [[ '"[\"bin\"]"' != ${ builtins.toJSON implementation.targets } ]]
                                                                                         then
                                                                                             failure "We expected the targets to be bin"
+                                                                                        fi
+                                                                                        if [[ '"false"' != ${ builtins.toJSON implementation.transient } ]]
+                                                                                        then
+                                                                                            failure "We expected transient to be false"
                                                                                         fi
                                                                                     '' ;
                                                                     }
