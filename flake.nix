@@ -6,9 +6,9 @@
                 lib =
                     {
                         coreutils ,
+                        findutils ,
                         nix ,
                         package ,
-                        target ,
                         writeShellApplication
                     } :
                         let
@@ -21,14 +21,13 @@
                                                     writeShellApplication
                                                         {
                                                             name = "init" ;
-                                                            runtimeInputs = [ coreutils nix ] ;
+                                                            runtimeInputs = [ coreutils find nix ( failure "d070b306" ) ] ;
                                                             text =
                                                                 ''
                                                                     mkdir --parents /mount/bin
-                                                                    TARGET_1="$( nix shell ${ package } nixpkgs#which --command which ${ target } )" || failure 1
-                                                                    export TARGET_1
-                                                                    TARGET_2="$( nix shell ${ package } nixpkgs#which --command which ${ target } )" || failure 2
-                                                                    ln --symbolic "$TARGET_2" /mount/bin
+                                                                    nix build ${ package }
+                                                                    PACKAGE="$( nix eval ${ package } )" || failure
+                                                                    find "$PACKAGE" -maxdepth 1 -mindepth 1 -name bin -exec ln --symbolic {} /mount
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
