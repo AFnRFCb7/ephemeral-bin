@@ -25,7 +25,6 @@
                                                             runtimeInputs = [ coreutils findutils nix ( failure.implementation "d070b306" ) ] ;
                                                             text =
                                                                 ''
-                                                                    mkdir --parents /mount/links
                                                                     nix build ${ package } --out-link /links/result 2>&1
                                                                     PACKAGE="$( nix eval ${ package } --raw )" || failure
                                                                     ln --symbolic "$PACKAGE" /mount/derivation
