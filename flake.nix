@@ -28,7 +28,7 @@
                                                                     mkdir --parents /mount/bin
                                                                     nix build ${ package }
                                                                     PACKAGE="$( nix eval ${ package } )" || failure
-                                                                    find "$PACKAGE" -maxdepth 1 -mindepth 1 -name bin -exec ln --symbolic {} /mount
+                                                                    find "$PACKAGE" -maxdepth 1 -mindepth 1 -name bin -exec ln --symbolic {} /mount \;
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
