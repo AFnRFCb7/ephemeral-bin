@@ -25,7 +25,7 @@
                                                             text =
                                                                 ''
                                                                     mkdir --parents /mount/bin
-                                                                    nix-shell -p ${ package } pkgs.which --run 'ln --symbolic ${ target } /mount/bin'
+                                                                    nix shell ${ package } nixpkgs#which --command ln --symbolic ${ target } /mount/bin
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
