@@ -25,13 +25,14 @@
                                                             runtimeInputs = [ coreutils findutils nix ( failure.implementation "d070b306" ) ] ;
                                                             text =
                                                                 ''
-                                                                    nix build ${ package } --out-link /scratch 2>&1
+                                                                    mkdir --parents /mount/links
+                                                                    nix build ${ package } --out-link /links/result 2>&1
                                                                     PACKAGE="$( nix eval ${ package } --raw )" || failure
-                                                                    find "$PACKAGE" -maxdepth 1 -mindepth 1 -name bin -exec ln --symbolic {} /mount \;
+                                                                    ln --symbolic "$PACKAGE" /mount/derivation
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
-                                    targets = [ "bin" ] ;
+                                    targets = [ "links" "derivation" ] ;
                                     transient = false ;
                                 } ;
                             in
