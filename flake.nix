@@ -34,14 +34,15 @@
                                                         } ;
                                                 in "${ application }/bin/init" ;
                                     targets = [ "derivation" ] ;
-                                    transient = false ;
                                 } ;
                             in
                                 {
                                     check =
                                         {
                                             expected ,
-                                            mkDerivation
+                                            mkDerivation ,
+                                            resources ,
+                                            self
                                         } :
                                             mkDerivation
                                                 {
@@ -56,24 +57,20 @@
                                                                 writeShellApplication
                                                                     {
                                                                         name = "execute-test" ;
-                                                                        runtimeInputs = [ nix failure ] ;
+                                                                        runtimeInputs = [ failure ] ;
                                                                         text =
                                                                             let
-                                                                                observed-init = implementation.init { resources = null ; self = null ; } ;
+                                                                                observed = implementation { resources = resources ; self = self ; } ;
                                                                                 in
-                                                                                    ''
-                                                                                        EXPECTED=${ if expected then "true" else "false" }
-                                                                                        if ${ implementation }
-                                                                                        then
-                                                                                            OBSERVED=true
-                                                                                        else
-                                                                                            OBSERVED=false
-                                                                                        fi
-                                                                                        if [[ "$EXPECTED" != "$OBSERVED" ]]
-                                                                                        then
-                                                                                            fail "We expected $EXPECTED but we observed $OBSERVED"
-                                                                                        fi
-                                                                                    '' ;
+                                                                                    if expected == observed then
+                                                                                        ''
+                                                                                            OUT="$1"
+                                                                                            touch "$OUT"
+                                                                                        ''
+                                                                                    else
+                                                                                        ''
+                                                                                            failure
+                                                                                        '' ;
                                                                     }
                                                             )
                                                         ] ;
