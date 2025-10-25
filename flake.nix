@@ -61,12 +61,12 @@
                                                                         runtimeInputs = [ coreutils ( failure.implementation "e75eb2bc" ) ] ;
                                                                         text =
                                                                             let
-                                                                                observed-init =
+                                                                                observed =
                                                                                     let
                                                                                         x = implementation.init { resources = resources ; self = self ; } ;
                                                                                         in x.init ;
                                                                                 in
-                                                                                    if expected == observed then
+                                                                                    if expected-init == observed then
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
