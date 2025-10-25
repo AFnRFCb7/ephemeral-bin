@@ -108,7 +108,7 @@
                                                                             let
                                                                                 observed-names = builtins.attrNames implementation ;
                                                                                 in
-                                                                                    if [ "init" "derivation" ] == observed-targets then
+                                                                                    if [ "init" "derivation" ] == observed-names then
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
