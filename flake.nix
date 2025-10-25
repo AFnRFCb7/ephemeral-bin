@@ -57,11 +57,10 @@
                                                                 writeShellApplication
                                                                     {
                                                                         name = "execute-test" ;
-                                                                        runtimeInputs = [ ] ;
+                                                                        runtimeInputs = [ coreutils failure ] ;
                                                                         text =
                                                                             let
-                                                                                observed = true ;
-                                                                                # observed = implementation { resources = resources ; self = self ; } ;
+                                                                                observed = builtins.toString ( implementation { resources = resources ; self = self ; } ) ;
                                                                                 in
                                                                                     if expected == observed then
                                                                                         ''
@@ -70,7 +69,7 @@
                                                                                         ''
                                                                                     else
                                                                                         ''
-
+                                                                                            failure.implementation
                                                                                         '' ;
                                                                     }
                                                             )
