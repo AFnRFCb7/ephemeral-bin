@@ -117,7 +117,7 @@
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
-                                                                                            failure "We expected the targets to be [ init derivation ] but we observed ${ builtins.toJSON observed-names }"
+                                                                                            failure 'We expected the targets to be [ init derivation ] but we observed ${ builtins.toJSON observed-names }'
                                                                                         '' ;
                                                                     }
                                                             )
