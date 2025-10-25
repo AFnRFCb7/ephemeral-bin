@@ -56,7 +56,7 @@
                                                                 writeShellApplication
                                                                     {
                                                                         name = "execute-test" ;
-                                                                        runtimeInputs = [ nix ( failure "42ad3053" ) ] ;
+                                                                        runtimeInputs = [ nix failure ] ;
                                                                         text =
                                                                             let
                                                                                 observed-init = implementation.init { resources = null ; self = null ; } ;
