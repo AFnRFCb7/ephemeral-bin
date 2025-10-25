@@ -57,7 +57,7 @@
                                                                 writeShellApplication
                                                                     {
                                                                         name = "execute-test" ;
-                                                                        runtimeInputs = [ coreutils failure.implementation ] ;
+                                                                        runtimeInputs = [ coreutils ( failure.implementation "e75eb2bc" ) ] ;
                                                                         text =
                                                                             let
                                                                                 observed = builtins.toString ( implementation { resources = resources ; self = self ; } ) ;
