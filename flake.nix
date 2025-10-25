@@ -57,7 +57,7 @@
                                                                 writeShellApplication
                                                                     {
                                                                         name = "execute-test" ;
-                                                                        runtimeInputs = [ failure ] ;
+                                                                        runtimeInputs = [ ] ;
                                                                         text =
                                                                             let
                                                                                 observed = true ;
@@ -70,7 +70,7 @@
                                                                                         ''
                                                                                     else
                                                                                         ''
-                                                                                            failure wtf
+
                                                                                         '' ;
                                                                     }
                                                             )
