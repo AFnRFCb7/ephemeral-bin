@@ -108,7 +108,7 @@
                                                                             let
                                                                                 observed-names = builtins.attrNames implementation ;
                                                                                 in
-                                                                                    if [ "init" "derivation" ] == observed-names then
+                                                                                    if [ "init" "targets" ] == observed-names then
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
@@ -117,7 +117,7 @@
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
-                                                                                            failure 'We expected the targets to be [ init derivation ] but we observed ${ builtins.toJSON observed-names }'
+                                                                                            failure 'We expected the targets to be [ init targets ] but we observed ${ builtins.toJSON observed-names }'
                                                                                         '' ;
                                                                     }
                                                             )
