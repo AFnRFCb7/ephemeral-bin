@@ -61,10 +61,7 @@
                                                                         runtimeInputs = [ coreutils ( failure.implementation "e75eb2bc" ) ] ;
                                                                         text =
                                                                             let
-                                                                                observed =
-                                                                                    let
-                                                                                        x = implementation.init { resources = resources ; self = self ; } ;
-                                                                                        in x.init ;
+                                                                                observed = implementation.init { resources = resources ; self = self ; } ;
                                                                                 in
                                                                                     if expected-init == observed then
                                                                                         ''
