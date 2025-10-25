@@ -50,6 +50,7 @@
                                                         ''
                                                             execute-test-init "$out"
                                                             execute-test-targets "$out"
+                                                            execute-test-names "$out"
                                                         '' ;
                                                     name = "check" ;
                                                     nativeBuildInputs =
@@ -95,6 +96,28 @@
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
                                                                                             failure "We expected the targets to be [ derivation ] but we observed ${ builtins.toJSON observed-targets }"
+                                                                                        '' ;
+                                                                    }
+                                                            )
+                                                            (
+                                                                writeShellApplication
+                                                                    {
+                                                                        name = "execute-test-names" ;
+                                                                        runtimeInputs = [ coreutils ( failure.implementation "1cbc4bb0" ) ] ;
+                                                                        text =
+                                                                            let
+                                                                                observed-names = builtins.attrNames implementation ;
+                                                                                in
+                                                                                    if [ "init" "derivation" ] == observed-targets then
+                                                                                        ''
+                                                                                            OUT="$1"
+                                                                                            touch "$OUT"
+                                                                                        ''
+                                                                                    else
+                                                                                        ''
+                                                                                            OUT="$1"
+                                                                                            touch "$OUT"
+                                                                                            failure "We expected the targets to be [ init derivation ] but we observed ${ builtins.toJSON observed-names }"
                                                                                         '' ;
                                                                     }
                                                             )
