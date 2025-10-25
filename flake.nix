@@ -33,7 +33,7 @@
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
-                                    targets = [ "bin" ] ;
+                                    targets = [ "derivation" ] ;
                                     transient = false ;
                                 } ;
                             in
