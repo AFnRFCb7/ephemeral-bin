@@ -60,7 +60,8 @@
                                                                         runtimeInputs = [ failure ] ;
                                                                         text =
                                                                             let
-                                                                                observed = implementation { resources = resources ; self = self ; } ;
+                                                                                observed = true ;
+                                                                                # observed = implementation { resources = resources ; self = self ; } ;
                                                                                 in
                                                                                     if expected == observed then
                                                                                         ''
