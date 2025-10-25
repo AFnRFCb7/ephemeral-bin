@@ -39,7 +39,7 @@
                                 {
                                     check =
                                         {
-                                            expected ,
+                                            expected-init ,
                                             mkDerivation ,
                                             resources ? null ,
                                             self ? null
@@ -48,7 +48,8 @@
                                                 {
                                                     installPhase =
                                                         ''
-                                                            execute-test "$out"
+                                                            execute-test-init "$out"
+                                                            execute-test-targets "$out"
                                                         '' ;
                                                     name = "check" ;
                                                     nativeBuildInputs =
@@ -56,11 +57,14 @@
                                                             (
                                                                 writeShellApplication
                                                                     {
-                                                                        name = "execute-test" ;
+                                                                        name = "execute-test-init" ;
                                                                         runtimeInputs = [ coreutils ( failure.implementation "e75eb2bc" ) ] ;
                                                                         text =
                                                                             let
-                                                                                observed = builtins.toJSON implementation ;
+                                                                                observed-init =
+                                                                                    let
+                                                                                        x = implementation.init { resources = resources ; self = self ; } ;
+                                                                                        in x.init ;
                                                                                 in
                                                                                     if expected == observed then
                                                                                         ''
@@ -69,7 +73,31 @@
                                                                                         ''
                                                                                     else
                                                                                         ''
+                                                                                            OUT="$1"
+                                                                                            touch "$OUT"
                                                                                             failure
+                                                                                        '' ;
+                                                                    }
+                                                            )
+                                                            (
+                                                                writeShellApplication
+                                                                    {
+                                                                        name = "execute-test-targets" ;
+                                                                        runtimeInputs = [ coreutils ( failure.implementation "1cbc4bb0" ) ] ;
+                                                                        text =
+                                                                            let
+                                                                                observed-targets = implementation.targets ;
+                                                                                in
+                                                                                    if [ "derivation" ] == observed-targets then
+                                                                                        ''
+                                                                                            OUT="$1"
+                                                                                            touch "$OUT"
+                                                                                        ''
+                                                                                    else
+                                                                                        ''
+                                                                                            OUT="$1"
+                                                                                            touch "$OUT"
+                                                                                            failure "We expected the targets to be [ derivation ] but we observed ${ builtins.toJSON observed-targets }"
                                                                                         '' ;
                                                                     }
                                                             )
