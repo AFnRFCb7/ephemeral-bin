@@ -29,11 +29,11 @@
                                                                     FILE="$( mktemp --dry-run ${ garbage-collection-root }/XXXXXXXX )" || failure mktemp --dry-run ${ garbage-collection-root }
                                                                     nix build ${ package } --out-link "$FILE" 2>&1
                                                                     PACKAGE="$( nix eval ${ package } --raw )" || failure nix eval ${ package }
-                                                                    ln --symbolic "$PACKAGE" /mount/derivation
+                                                                    ln --symbolic "$PACKAGE" /mount/ephemeral
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
-                                    targets = [ "derivation" ] ;
+                                    targets = [ "ephemeral" ] ;
                                 } ;
                             in
                                 {
