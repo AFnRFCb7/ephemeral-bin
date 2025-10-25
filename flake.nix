@@ -72,7 +72,7 @@
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
-                                                                                            failure
+                                                                                            failure We expected ${ expected-init } but we observed ${ observed }
                                                                                         '' ;
                                                                     }
                                                             )
