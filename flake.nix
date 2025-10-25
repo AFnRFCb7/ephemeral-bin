@@ -86,7 +86,7 @@
                                                                             let
                                                                                 observed-targets = implementation.targets ;
                                                                                 in
-                                                                                    if [ "derivation" ] == observed-targets then
+                                                                                    if [ "ephemeral" ] == observed-targets then
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
@@ -95,7 +95,7 @@
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
-                                                                                            failure "We expected the targets to be [ derivation ] but we observed ${ builtins.toJSON observed-targets }"
+                                                                                            failure 'We expected the targets to be [ ephemeral ] but we observed ${ builtins.toJSON observed-targets }'
                                                                                         '' ;
                                                                     }
                                                             )
