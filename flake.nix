@@ -60,7 +60,7 @@
                                                                         runtimeInputs = [ coreutils ( failure.implementation "e75eb2bc" ) ] ;
                                                                         text =
                                                                             let
-                                                                                observed = builtins.toJSON ( implementation { resources = resources ; self = self ; } ) ;
+                                                                                observed = builtins.toString ( implementation ) ;
                                                                                 in
                                                                                     if expected == observed then
                                                                                         ''
