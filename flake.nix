@@ -72,7 +72,7 @@
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
-                                                                                            failure We expected ${ expected-init } but we observed ${ observed }
+                                                                                            failure We expected ${ builtins.toString expected-init } but we observed ${ builtins.toString observed }
                                                                                         '' ;
                                                                     }
                                                             )
