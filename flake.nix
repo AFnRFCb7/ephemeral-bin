@@ -41,8 +41,8 @@
                                         {
                                             expected ,
                                             mkDerivation ,
-                                            resources ,
-                                            self
+                                            resources ? null ,
+                                            self ? null
                                         } :
                                             mkDerivation
                                                 {
@@ -60,7 +60,7 @@
                                                                         runtimeInputs = [ failure ] ;
                                                                         text =
                                                                             let
-                                                                                observed = implementation { resources = resources ; self = self ; } ;
+                                                                                observed = builtins.toString ( implementation { resources = resources ; self = self ; } ) ;
                                                                                 in
                                                                                     if expected == observed then
                                                                                         ''
@@ -69,7 +69,7 @@
                                                                                         ''
                                                                                     else
                                                                                         ''
-                                                                                            failure
+                                                                                            failure We expected ${ expected } but we observed ${ observed }
                                                                                         '' ;
                                                                     }
                                                             )
