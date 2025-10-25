@@ -7,7 +7,6 @@
                     {
                         coreutils ,
                         failure ,
-                        findutils ,
                         garbage-collection-root ,
                         nix ,
                         package ,
@@ -23,14 +22,14 @@
                                                     writeShellApplication
                                                         {
                                                             name = "init" ;
-                                                            runtimeInputs = [ coreutils findutils nix ( failure.implementation "d070b306" ) ] ;
+                                                            runtimeInputs = [ coreutils nix ( failure.implementation "d070b306" ) ] ;
                                                             text =
                                                                 ''
                                                                     mkdir --parents ${ garbage-collection-root }
                                                                     FILE="$( mktemp --dry-run ${ garbage-collection-root }/XXXXXXXX )" || failure mktemp --dry-run ${ garbage-collection-root }
                                                                     nix build ${ package } --out-link "$FILE" 2>&1
                                                                     PACKAGE="$( nix eval ${ package } --raw )" || failure nix eval ${ package }
-                                                                    find "$PACKAGE" -mindepth 1 -maxdepth 1 -name bin -exec ln --symbolic {} /mount \;
+                                                                    ln --symbolic "$PACKAGE" /mount/derivation
                                                                 '' ;
                                                         } ;
                                                 in "${ application }/bin/init" ;
@@ -41,7 +40,6 @@
                                 {
                                     check =
                                         {
-                                            expected-init ,
                                             mkDerivation
                                         } :
                                             mkDerivation
@@ -57,23 +55,27 @@
                                                                 writeShellApplication
                                                                     {
                                                                         name = "execute-test" ;
-                                                                        runtimeInputs = [ ( failure "42ad3053" ) ] ;
+                                                                        runtimeInputs = [ nix ( failure "42ad3053" ) ] ;
                                                                         text =
                                                                             let
                                                                                 observed-init = implementation.init { resources = null ; self = null ; } ;
                                                                                 in
                                                                                     ''
-                                                                                        if [[ "${ expected-init }" != "${ observed-init }" ]]
+                                                                                        if nix eval ${ package } --raw
                                                                                         then
-                                                                                            failure "We expected the init to be ${ expected-init } but we observed ${ observed-init }" ;-
+                                                                                            EXPECTED=true
+                                                                                        else
+                                                                                            EXPECTED=false
                                                                                         fi
-                                                                                        if [[ '"[\"bin\"]"' != ${ builtins.toJSON implementation.targets } ]]
+                                                                                        if ${ implementation }
                                                                                         then
-                                                                                            failure "We expected the targets to be bin"
+                                                                                            OBSERVED=true
+                                                                                        else
+                                                                                            OBSERVED=false
                                                                                         fi
-                                                                                        if [[ '"false"' != ${ builtins.toJSON implementation.transient } ]]
+                                                                                        if [[ "$EXPECTED" != "$OBSERVED" ]]
                                                                                         then
-                                                                                            failure "We expected transient to be false"
+                                                                                            fail "We expected $EXPECTED but we observed $OBSERVED"
                                                                                         fi
                                                                                     '' ;
                                                                     }
