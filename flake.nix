@@ -40,6 +40,7 @@
                                 {
                                     check =
                                         {
+                                            expected ,
                                             mkDerivation
                                         } :
                                             mkDerivation
@@ -61,12 +62,7 @@
                                                                                 observed-init = implementation.init { resources = null ; self = null ; } ;
                                                                                 in
                                                                                     ''
-                                                                                        if nix eval ${ package } --raw
-                                                                                        then
-                                                                                            EXPECTED=true
-                                                                                        else
-                                                                                            EXPECTED=false
-                                                                                        fi
+                                                                                        EXPECTED=${ if expected then "true" else "false" }
                                                                                         if ${ implementation }
                                                                                         then
                                                                                             OBSERVED=true
