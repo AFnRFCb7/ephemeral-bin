@@ -61,7 +61,7 @@
                                                                         text =
                                                                             let
                                                                                 init = instance { resources = resources ; self = self ; } ;
-                                                                                instance = implementation { package = package ; }
+                                                                                instance = implementation { package = package ; } ;
                                                                                 in
                                                                                     ''
                                                                                         OUT="$1"
