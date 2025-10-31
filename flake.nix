@@ -60,7 +60,7 @@
                                                                         runtimeInputs = [ coreutils failure ] ;
                                                                         text =
                                                                             let
-                                                                                init = instance { resources = resources ; self = self ; } ;
+                                                                                init = instance.init { resources = resources ; self = self ; } ;
                                                                                 instance = implementation { package = package ; } ;
                                                                                 in
                                                                                     ''
