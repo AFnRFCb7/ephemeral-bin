@@ -23,7 +23,7 @@
                                                         writeShellApplication
                                                             {
                                                                 name = "init" ;
-                                                                runtimeInputs = [ coreutils nix ( failure.implementation "d070b306" ) ] ;
+                                                                runtimeInputs = [ coreutils nix ] ;
                                                                 text =
                                                                     ''
                                                                         mkdir --parents ${ garbage-collection-root }
