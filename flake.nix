@@ -65,6 +65,7 @@
                                                                                 in
                                                                                     ''
                                                                                         OUT="$1"
+                                                                                        touch "$OUT"
                                                                                         ${ if [ "init" "targets" ] != builtins.attrNames instance then ''failure ephemeral names "We expected the names to be init targets but we observed" "${ builtins.toJSON ( builtins.attrNames instance ) }"'' else "#" }
                                                                                         ${ if expected != builtins.toString init then ''failure ephemeral init "We expected the init to be ${ expected } but we observed ${ builtins.toString init }"'' else "#" }
                                                                                         ${ if [ "ephemeral" ] != instance.targets then ''failure ephemeral targets "We expected the targets to be ephemeral but we observed ${ builtins.toJSON instance.targets }"'' else "#" }
