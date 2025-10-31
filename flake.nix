@@ -40,7 +40,7 @@
                                 {
                                     check =
                                         {
-                                            expected-init ,
+                                            expected ,
                                             failure ,
                                             mkDerivation ,
                                             package ,
