@@ -45,29 +45,30 @@
                                                 (
                                                     let
                                                         observed = implementation { expression = expression ; targets = targets ; } ;
-                                                        if expected == observed then
-                                                            writeShellApplication
-                                                                {
-                                                                    name = "install-check" ;
-                                                                    runtimeInputs = [ coreutils ] ;
-                                                                    text =
-                                                                        ''
-                                                                            OUT="$1"
-                                                                            touch "$OUT"
-                                                                        '' ;
-                                                                }
-                                                        else
-                                                            writeShellApplicationn
-                                                                {
-                                                                    name = "install-check" ;
-                                                                    runtimeInputs = [ coreutils ] ;
-                                                                    text =
-                                                                        ''
-                                                                            OUT="$1"
-                                                                            touch "$OUT"
-                                                                            failure 9c568b42 "We expected expected to be observed" "EXPECTED=${ expected }" "OBSERVED=${ observed }"
-                                                                        '' ;
-                                                                }
+                                                        in
+                                                            if expected == observed then
+                                                                writeShellApplication
+                                                                    {
+                                                                        name = "install-check" ;
+                                                                        runtimeInputs = [ coreutils ] ;
+                                                                        text =
+                                                                            ''
+                                                                                OUT="$1"
+                                                                                touch "$OUT"
+                                                                            '' ;
+                                                                    }
+                                                            else
+                                                                writeShellApplicationn
+                                                                    {
+                                                                        name = "install-check" ;
+                                                                        runtimeInputs = [ coreutils ] ;
+                                                                        text =
+                                                                            ''
+                                                                                OUT="$1"
+                                                                                touch "$OUT"
+                                                                                failure 9c568b42 "We expected expected to be observed" "EXPECTED=${ expected }" "OBSERVED=${ observed }"
+                                                                            '' ;
+                                                                    }
                                                 )
                                             ] ;
                                         src = ./. ;
