@@ -69,7 +69,7 @@
                                                                                         ''
                                                                                             OUT="$1"
                                                                                             touch "$OUT"
-                                                                                            failure 9c568b42 "We expected expected to be observed" "EXPECTED=${ expected }" "OBSERVED=${ observed }"
+                                                                                            failure 9c568b42 "We expected expected to be observed" "EXPECTED=${ expected }"
                                                                                         '' ;
                                                                                 }
                                                             )
