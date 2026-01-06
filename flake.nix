@@ -58,7 +58,7 @@
                                                                             '' ;
                                                                     }
                                                             else
-                                                                writeShellApplicationn
+                                                                writeShellApplication
                                                                     {
                                                                         name = "install-check" ;
                                                                         runtimeInputs = [ coreutils ] ;
@@ -72,8 +72,7 @@
                                                 )
                                             ] ;
                                         src = ./. ;
-                                    }
-                        implementation = implementation ;
-
+                                    } ;
+                        # implementation = implementation ;
                     } ;
 }
