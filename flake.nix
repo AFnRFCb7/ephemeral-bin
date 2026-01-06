@@ -31,15 +31,13 @@
                                 {
                                     check =
                                         {
-                                            coreutils ,
                                             expected ,
                                             expression ? "ea8f68e5" ,
                                             failure ,
-                                            mkDerivation ,
+                                            pkgs ? "0a4b9c39" ,
                                             targets ? "8decf091" ,
-                                            writeShellApplication
                                         } :
-                                            mkDerivation
+                                            pkgs.stdenv.mkDerivation
                                                 {
                                                     installPhase = ''install-check "$out"'' ;
                                                     name = "check" ;
@@ -50,10 +48,10 @@
                                                                     init = implementation.init { mount = mount ; pkgs = pkgs ; resources = resources ; root = root ; wrap = wrap ; } ;
                                                                     instance = implementation { expression = expression ; targets = targets ; } ;
                                                                     in
-                                                                        writeShellApplication
+                                                                        pkgs.writeShellApplication
                                                                             {
                                                                                 name = "install-check" ;
-                                                                                runtimeInputs = [ coreutils failure ] ;
+                                                                                runtimeInputs = [ pkgs.coreutils failure ] ;
                                                                                 text =
                                                                                     ''
                                                                                         OUT="$1"
