@@ -21,7 +21,7 @@
                                                                 text =
                                                                     ''
                                                                         cd /scratch
-                                                                        nix build --expr ${ expression }
+                                                                        nix build ${ expression }
                                                                         find /scratch/result -mindepth 1 -maxdepth 1 -exec ln --symbolic {} /mount \;
                                                                     '' ;
                                                             } ;
