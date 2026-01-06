@@ -40,7 +40,7 @@
                                     {
                                         installPhase = ''install-check "$out"'' ;
                                         name = "check" ;
-                                        nativeInputs =
+                                        nativeBuildInputs =
                                             [
                                                 (
                                                     let
@@ -73,6 +73,6 @@
                                             ] ;
                                         src = ./. ;
                                     } ;
-                        # implementation = implementation ;
+                        implementation = implementation ;
                     } ;
 }
