@@ -21,7 +21,7 @@
                                                                 text =
                                                                     ''
                                                                         cd /scratch
-                                                                        nix build --extra-experimental-features 'nix-command flakes'  ${ expression }
+                                                                        nix build --extra-experimental-features 'nix-command flakes' ${ expression }
                                                                         find /scratch/result -mindepth 1 -maxdepth 1 -exec ln --symbolic {} /mount \;
                                                                     '' ;
                                                             } ;
