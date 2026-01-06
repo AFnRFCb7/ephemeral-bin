@@ -35,7 +35,7 @@
                                             expression ? "ea8f68e5" ,
                                             failure ,
                                             mount ? "26882cf8" ,
-                                            pkgs ,
+                                            pkgs ? "d0c5e7e2" ,
                                             resources ? "cc37db1b" ,
                                             root ? "a6b00f75" ,
                                             targets ? "8decf091" ,
