@@ -5,7 +5,7 @@
         { self } :
             {
                 lib =
-                    { } :
+                    { failure } :
                         let
                             implementation =
                                 { expression , targets } :
@@ -17,12 +17,16 @@
                                                         pkgs.writeShellApplication
                                                             {
                                                                 name = "init" ;
-                                                                runtimeInputs = [ pkgs.coreutils pkgs.findutils pkgs.nix ] ;
+                                                                runtimeInputs = [ pkgs.coreutils pkgs.findutils pkgs.nix failure ] ;
                                                                 text =
                                                                     ''
                                                                         cd /scratch
                                                                         nix build --extra-experimental-features 'nix-command flakes' ${ expression }
-                                                                        find /scratch/result/ -mindepth 1 -maxdepth 1 -exec ln --symbolic {} /mount \;
+                                                                        find /scratch/result/ -mindepth 1 -maxdepth 1 | while read -r INPUT
+                                                                        do
+                                                                            I="$( readlink -f "$INPUT" )" || failure babfe234
+                                                                            ln --symbolic "$I" /mount
+                                                                        done
                                                                     '' ;
                                                             } ;
                                                     in "${ application }/bin/init" ;
@@ -34,7 +38,6 @@
                                         {
                                             expected ,
                                             expression ? "ea8f68e5" ,
-                                            failure ,
                                             mount ? "26882cf8" ,
                                             pkgs ? "d0c5e7e2" ,
                                             resources ? "cc37db1b" ,
