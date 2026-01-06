@@ -49,7 +49,7 @@
                                                         [
                                                             (
                                                                 let
-                                                                    init = implementation.init { mount = mount ; pkgs = pkgs ; resources = resources ; root = root ; wrap = wrap ; } ;
+                                                                    init = instance.init { mount = mount ; pkgs = pkgs ; resources = resources ; root = root ; wrap = wrap ; } ;
                                                                     instance = implementation { expression = expression ; targets = targets ; } ;
                                                                     in
                                                                         pkgs.writeShellApplication
