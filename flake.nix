@@ -47,31 +47,22 @@
                                                         [
                                                             (
                                                                 let
-                                                                    observed = implementation { expression = expression ; targets = targets ; } ;
+                                                                    init = implementation.init { mount = mount ; pkgs = pkgs ; resources = resources ; root = root ; wrap = wrap ; } ;
+                                                                    instance = implementation { expression = expression ; targets = targets ; } ;
                                                                     in
-                                                                        if expected == observed then
-                                                                            writeShellApplication
-                                                                                {
-                                                                                    name = "install-check" ;
-                                                                                    runtimeInputs = [ coreutils ] ;
-                                                                                    text =
-                                                                                        ''
-                                                                                            OUT="$1"
-                                                                                            touch "$OUT"
-                                                                                        '' ;
-                                                                                }
-                                                                        else
-                                                                            writeShellApplication
-                                                                                {
-                                                                                    name = "install-check" ;
-                                                                                    runtimeInputs = [ coreutils ] ;
-                                                                                    text =
-                                                                                        ''
-                                                                                            OUT="$1"
-                                                                                            touch "$OUT"
-                                                                                            failure 9c568b42 "We expected expected to be observed" "EXPECTED=${ expected }"
-                                                                                        '' ;
-                                                                                }
+                                                                        writeShellApplication
+                                                                            {
+                                                                                name = "install-check" ;
+                                                                                runtimeInputs = [ coreutils failure ] ;
+                                                                                text =
+                                                                                    ''
+                                                                                        OUT="$1"
+                                                                                        touch "$OUT"
+                                                                                        ${ if [ "init" "targets" ] != builtins.attrNames instance then ''failure b94ff7e6 "We expected the names to be init and targets" "${ builtins.concatStringsSep "," ( builtins.attrNames instance ) }"'' else "#" }
+                                                                                        ${ if targets != instance.targets then ''failure c5dae5cf "We expected the targets to be as specified" "${ builtins.concatStringsSep "," ( builtins.attrNames instance.targets ) }" }"'' else "#" }
+                                                                                        ${ if init != expected then ''failure 3ae22bf6 "We expected the init to match" ${ init }'' else "#" }
+                                                                                    '' ;
+                                                                            }
                                                             )
                                                         ] ;
                                                     src = ./. ;
