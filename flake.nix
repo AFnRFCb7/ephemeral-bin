@@ -22,7 +22,7 @@
                                                                     ''
                                                                         cd /scratch
                                                                         nix build --extra-experimental-features 'nix-command flakes' ${ expression }
-                                                                        find /scratch/result -mindepth 1 -maxdepth 1 -exec ln --symbolic {} /mount \;
+                                                                        find /scratch/result/ -mindepth 1 -maxdepth 1 -exec ln --symbolic {} /mount \;
                                                                     '' ;
                                                             } ;
                                                     in "${ application }/bin/init" ;
