@@ -21,7 +21,7 @@
                                                                 text =
                                                                     ''
                                                                         cd /scratch
-                                                                        nix build --extra-experimental-features 'nix-command flakes' ${ expression }
+                                                                        nix build --extra-experimental-features 'nix-command flakes' ${ expression } 2>&1
                                                                         find /scratch/result/ -mindepth 1 -maxdepth 1 | while read -r INPUT
                                                                         do
                                                                             I="$( readlink -f "$INPUT" )" || failure babfe234
