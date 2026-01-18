@@ -25,7 +25,8 @@
                                                                         find /scratch/result/ -mindepth 1 -maxdepth 1 | while read -r INPUT
                                                                         do
                                                                             I="$( readlink -f "$INPUT" )" || failure babfe234
-                                                                            ln --symbolic "$I" /mount
+                                                                            J="$( basename "$INPUT" )" || failure 89b278c0
+                                                                            ln --symbolic "$I" "/mount/$J"
                                                                         done
                                                                     '' ;
                                                             } ;
